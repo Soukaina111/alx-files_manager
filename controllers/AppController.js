@@ -6,8 +6,8 @@ class AppController {
   static getStatus(request, response) {
     try {
       const redis = redisClient.isAlive(); // Check if Redis is alive
-      const db = dbClient.isAlive(); // Check if database is alive
-      response.status(200).send({ redis, db }); // Send status as response
+      const dab = dbClient.isAlive(); // Check if database is alive
+      response.status(200).send({ redis, dab }); // Send status as response
     } catch (error) {
       console.log(error); // Log any errors that occur
     }

@@ -44,7 +44,7 @@ class FilesController {
       name: fileName,
       type: fileType,
       isPublic: publicFile,
-      parentId
+      parentId,
     };
 
     // Handle folder creation
@@ -72,7 +72,7 @@ class FilesController {
 
     fileQ.add({ // Add file processing job to the queue
       userId: fileInsertData.userId,
-      fileId: fileInsertData._id
+      fileId: fileInsertData._id,
     });
 
     return response.status(201).send(fileInsertData); // Send response with file details
@@ -87,7 +87,7 @@ class FilesController {
     if (!user) return response.status(401).send({ error: 'Unauthorized' }); // Check if user exists
 
     const fileId = request.params.id || ''; // Get file ID from request parameters
-    const file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id }); // Find file in database
+    const file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id });
     if (!file) return response.status(404).send({ error: 'Not found' }); // Check if file exists
 
     return response.status(200).send({ // Send file information as response
@@ -96,7 +96,7 @@ class FilesController {
       name: file.name,
       type: file.type,
       isPublic: file.isPublic,
-      parentId: file.parentId
+      parentId: file.parentId,
     });
   }
 
@@ -115,15 +115,15 @@ class FilesController {
 
       parentId = ObjectId(parentId); // Convert to ObjectId
 
-      const folder = await dbClient.files.findOne({ _id: ObjectId(parentId) }); // Find parent folder
+      const folder = await dbClient.files.findOne({ _id: ObjectId(parentId) });
       if (!folder || folder.type !== 'folder') return response.status(200).send([]); // Check if parent is a folder
     }
 
     const page = request.query.page || 0; // Get pagination page from query
 
     const agg = { $and: [{ parentId }] }; // Prepare aggregation query
-    let aggData = [{ $match: agg }, { $skip: page * 20 }, { $limit: 20 }]; // Define aggregation pipeline
-    if (parentId === 0) aggData = [{ $skip: page * 20 }, { $limit: 20 }]; // Adjust pipeline for root files
+    let aggData = [{ $match: agg }, { $skip: page * 20 }, { $limit: 20 }];
+    if (parentId === 0) aggData = [{ $skip: page * 20 }, { $limit: 20 }];
 
     const pageFiles = await dbClient.files.aggregate(aggData); // Execute aggregation query
     const files = []; // Initialize array for files
@@ -136,7 +136,7 @@ class FilesController {
         name: file.name,
         type: file.type,
         isPublic: file.isPublic,
-        parentId: file.parentId
+        parentId: file.parentId,
       };
       files.push(fileObj); // Add file object to array
     });
@@ -154,11 +154,11 @@ class FilesController {
 
     const fileId = request.params.id || ''; // Get file ID from request parameters
 
-    let file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id }); // Find file in database
+    let file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id });
     if (!file) return response.status(404).send({ error: 'Not found' }); // Check if file exists
 
-    await dbClient.files.updateOne({ _id: ObjectId(fileId) }, { $set: { isPublic: true } }); // Update file to be public
-    file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id }); // Retrieve updated file
+    await dbClient.files.updateOne({ _id: ObjectId(fileId) }, { $set: { isPublic: true } });
+    file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id });
 
     return response.status(200).send({ // Send updated file information as response
       id: file._id,
@@ -166,7 +166,7 @@ class FilesController {
       name: file.name,
       type: file.type,
       isPublic: file.isPublic,
-      parentId: file.parentId
+      parentId: file.parentId,
     });
   }
 
@@ -180,11 +180,11 @@ class FilesController {
 
     const fileId = request.params.id || ''; // Get file ID from request parameters
 
-    let file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id }); // Find file in database
+    let file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id });
     if (!file) return response.status(404).send({ error: 'Not found' }); // Check if file exists
 
-    await dbClient.files.updateOne({ _id: ObjectId(fileId) }, { $set: { isPublic: false } }); // Update file to be private
-    file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id }); // Retrieve updated file
+    await dbClient.files.updateOne({ _id: ObjectId(fileId) }, { $set: { isPublic: false } });
+    file = await dbClient.files.findOne({ _id: ObjectId(fileId), userId: user._id });
 
     return response.status(200).send({ // Send updated file information as response
       id: file._id,
@@ -192,7 +192,7 @@ class FilesController {
       name: file.name,
       type: file.type,
       isPublic: file.isPublic,
-      parentId: file.parentId
+      parentId: file.parentId,
     });
   }
 
