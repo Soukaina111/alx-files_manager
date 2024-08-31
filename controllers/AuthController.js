@@ -34,7 +34,7 @@ class AuthController {
       const token = uuidv4(); // Generate a new UUID token
       const key = `auth_${token}`; // Create a key for Redis
       const duration = (60 * 60 * 24); // Set token expiration duration (24 hours)
-      await redisClient.set(key, user._id.toString(), duration); // Store user ID in Redis with the token
+      await redisClient.set(key, user._id.toString(), duration);
 
       response.status(200).json({ token }); // Send the token as response
     } catch (err) {
