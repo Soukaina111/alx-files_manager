@@ -1,12 +1,12 @@
 const redis = require('redis'); // Import Redis library
 // Import promisify utility for using promises
-const { promisify } = require('util'); 
+const { promisify } = require('util');
 
 class RedisClient {
   constructor() {
     this.client = redis.createClient(); // Create a Redis client instance
     // Promisify the get method
-    this.getAsync = promisify(this.client.get).bind(this.client); 
+    this.getAsync = promisify(this.client.get).bind(this.client);
     // Handle connection errors
     this.client.on('error', (error) => {
       console.log(`Redis client not connected to the server: ${error.message}`);
