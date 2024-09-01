@@ -1,7 +1,7 @@
 import express from 'express'; // Import the Express framework
 import AppController from '../controllers/AppController'; // Import the AppController for app-related routes
 import UsersController from '../controllers/UsersController';
-// import AuthController from '../controllers/AuthController';
+import AuthController from '../controllers/AuthController';
 // import FilesController from '../controllers/FilesController';
 
 const router = express.Router(); // Create a new router instance
@@ -23,7 +23,7 @@ const routeController = (app) => {
     UsersController.postNew(req, res); // Handle POST request to create a new user
   });
 
-  /* Authentication routes
+ // Authentication routes
   router.get('/connect', (req, res) => {
     AuthController.getConnect(req, res); // Handle GET request for user connection
   });
@@ -36,7 +36,7 @@ const routeController = (app) => {
     UsersController.getMe(req, res); // Handle GET request to retrieve current user info
   });
 
-  // File-related routes
+  /* File-related routes
   router.post('/files', (req, res) => {
     FilesController.postUpload(req, res); // Handle POST request to upload a new file
   });
