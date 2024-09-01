@@ -23,7 +23,7 @@ const routeController = (app) => {
     UsersController.postNew(req, res); // Handle POST request to create a new user
   });
 
- // Authentication routes
+  // Authentication routes
   router.get('/connect', (req, res) => {
     AuthController.getConnect(req, res); // Handle GET request for user connection
   });
