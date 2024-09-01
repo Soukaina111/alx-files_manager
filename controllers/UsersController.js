@@ -13,7 +13,7 @@ class UsersController {
       response.status(400).json({ error: 'Missing email' }); // Send error response
       return; // Exit early if email is missing
     }
-    
+
     // Check for missing password
     if (!password) {
       response.status(400).json({ error: 'Missing password' }); // Send error response
@@ -33,9 +33,9 @@ class UsersController {
         // Insert new user into the collection
         await collection.insertOne({ email, password: hashPwd });
         const newUser = await collection.findOne(
-          { email }, { projection: { email: 1 } } // Retrieve only the email
+          { email }, { projection: { email: 1 } }, // Retrieve only the email
         );
-        response.status(201).json({ id: newUser._id, email: newUser.email }); // Send success response
+        response.status(201).json({ id: newUser._id, email: newUser.email });
       }
     } catch (error) {
       console.log(error); // Log any errors that occur
