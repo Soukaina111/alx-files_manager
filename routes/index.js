@@ -1,6 +1,6 @@
 import express from 'express'; // Import the Express framework
 import AppController from '../controllers/AppController'; // Import the AppController for app-related routes
-// import UsersController from '../controllers/UsersController';
+ import UsersController from '../controllers/UsersController';
 // import AuthController from '../controllers/AuthController';
 // import FilesController from '../controllers/FilesController';
 
@@ -18,12 +18,12 @@ const routeController = (app) => {
     AppController.getStats(req, res); // Handle GET request for app statistics
   });
 
-  /* User-related routes
+   //User-related routes
   router.post('/users', (req, res) => {
     UsersController.postNew(req, res); // Handle POST request to create a new user
   });
 
- //Authentication routes
+ /* Authentication routes
   router.get('/connect', (req, res) => {
     AuthController.getConnect(req, res); // Handle GET request for user connection
   });
