@@ -1,8 +1,8 @@
 import express from 'express'; // Import the Express framework
 import AppController from '../controllers/AppController'; // Import the AppController for app-related routes
-//import UsersController from '../controllers/UsersController'; // Import the UsersController for user-related routes
-//import AuthController from '../controllers/AuthController'; // Import the AuthController for authentication routes
-//import FilesController from '../controllers/FilesController'; // Import the FilesController for file-related routes
+// import UsersController from '../controllers/UsersController';
+// import AuthController from '../controllers/AuthController';
+// import FilesController from '../controllers/FilesController';
 
 const router = express.Router(); // Create a new router instance
 
@@ -58,7 +58,7 @@ const routeController = (app) => {
   });
 
   router.post('/files/:id/data', (req, res) => {
-    FilesController.getFile(req, res); // Handle POST request to retrieve data for a specific file by ID
+    FilesController.getFile(req, res);
   });
 
 */
