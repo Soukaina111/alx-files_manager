@@ -53,7 +53,7 @@ class FilesController {
     } else {
       // If not a folder, store the file on disk
       const folderPath = process.env.FOLDER_PATH || '/tmp/files_manager'; // Define storage path
-      if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath, { recursive: true }, () => {}); // Create folder if it doesn't exist
+      if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath, { recursive: true }, () => {});
 
       // Create a unique ID and path for the new file
       const filenameUUID = uuidv4(); // Generate a UUID for the file
@@ -76,7 +76,7 @@ class FilesController {
       // If the file is an image, additionally queue it for processing
       if (type === 'image') {
         await fs.promises.writeFile(localPath, clearData, { flag: 'w+', encoding: 'binary' }); // Write image data
-        await fileQueue.add({ userId, fileId: fileInserted.insertedId, localPath }); // Add job to queue
+        await fileQueue.add({ userId, fileId: fileInserted.insertedId, localPath });
       }
     }
 
@@ -134,7 +134,7 @@ class FilesController {
       { $skip: pagination * 20 }, // Implement pagination
       { $limit: 20 },
     ];
-    if (parentId === 0) aggregateData = [{ $skip: pagination * 20 }, { $limit: 20 }]; // Adjust for root files
+    if (parentId === 0) aggregateData = [{ $skip: pagination * 20 }, { $limit: 20 }];
 
     const files = await dbClient.db
       .collection('files')
